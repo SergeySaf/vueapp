@@ -7,12 +7,8 @@
     <p><h3>{{title}}</h3></p>
     <p><h4>{{title}}</h4></p>
     <p><h5>{{title}}</h5></p>
-    <table>
-      <tr>
-        <td>{{ user.firstName }}</td>
-        <td v-text="user.lastName"></td>
-      </tr>
-    </table>
+    <p>{{ user.firstName }}</p>
+    <h1>{{FullName}}</h1>
     <button v-on:click="greet">Say Greating</button><br><br>
     <button v-on:click="sayHello('Hello, Sergey, nice to meet you!')">Greating to Sergey</button>
     <input type="text" v-on:keyup="pressKey"><br><br>
@@ -22,12 +18,22 @@
     <ul>
       <li v-for="item in items">{{item.msg}}</li>
     </ul>
+    <hr />
+    <label>First Name</label><input type="text" v-model="user.firstName">
+    <label>Last Name</label><input type="text" v-model="user.lastName">
+    <h2>{{msg}}</h2>
   </div>
 </template>
 
 <script>
 export default {
   name: 'test',
+  props: {
+    msg: {
+      type: String,
+      default: 'Foobar'
+    }
+  },
   data(){
     return{
       title: 'Hello',
@@ -59,6 +65,11 @@ export default {
     },
     enterHit: function() {
       console.log('You hit enter');
+    }
+  },
+  computed: {
+    FullName: function() {
+      return this.user.firstName + " " + this.user.lastName
     }
   }
 }
